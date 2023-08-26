@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read access to the "blogs" collection for everyone
+    match /blog-posts/{document} {
+      allow read: if true;
+      allow write: if false; // Keep write access denied for all
+    }
+    match /songs/{document} {
+      allow read: if true;
+      allow write: if false; // Keep write access denied for all
+    }
+  }
+}

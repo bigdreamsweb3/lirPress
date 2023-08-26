@@ -1,0 +1,65 @@
+// path: ./core/router.js
+// ./core/router.js
+import page from "page";
+import { Renderer } from "./renderer";
+
+class Router {
+  constructor() {
+    this.renderer = new Renderer();
+    this.listeners = []; // Initialize the listeners array
+
+    this.breadcrumbs = [];
+    this.initializeRoutes();
+    this.start();
+  }
+
+  onNavigate(callback) {
+    this.listeners.push(callback);
+  }
+
+  initializeRoutes() {
+    page("/", () => this.renderer.renderHomePage());
+
+    page("/songs", () => this.renderer.renderSongsListPage()); // Use this.renderer to access the method
+
+    page("/:type/:category/:slug", (ctx) => {
+      const { params } = ctx;
+      const { slug } = params;
+      page.redirect(`/${slug}`);
+    });
+
+    page("/:slug", (ctx) => {
+      const { params } = ctx;
+      const { slug } = params;
+
+      if (window.location.pathname === `/${slug}`) {
+        if (slug === "") {
+          // Handle the case when clicking the link to the home page ("/")
+          // For example, you can update the breadcrumb to indicate the home page
+          this.renderer.updateBreadcrumbs("/", "Home"); // Use this.renderer to access the method
+        } else {
+          // Use window.location.assign to update the URL without full page reload
+          this.renderer.renderFullContentPage(slug); // Use this.renderer to access the method
+        }
+      } else {
+        window.location.assign(`/${slug}`);
+      }
+    });
+  }
+
+  start() {
+    // Listen for the popstate event to handle back/forward navigation
+    window.addEventListener("popstate", () => {
+      // Use the page library to navigate based on the updated URL
+      page(window.location.pathname);
+    });
+
+    // Initialize the page library at the top level
+    page();
+
+    // Define your routes and start the router
+    this.initializeRoutes();
+  }
+}
+
+export { Router };

@@ -5,7 +5,7 @@ import { initializeApp } from "@firebase/app";
 import { getFirestore, doc, getDoc } from "@firebase/firestore";
 import { unsafeHTML } from "lit-html/directives/unsafe-html.js";
 import { classMap } from "lit-html/directives/class-map.js";
-import { TWStyles } from "../../src/tailwind/twlit";
+import { TWStyles } from "../../src/css/twlit";
 import globalSemanticCSS from "../../src/global-semanticCSS";
 
 import "./RIF/ResponsiveImageFrame";
@@ -109,7 +109,7 @@ class SingleContentComponent extends LitElement {
       }
     } else {
       console.error("Slug not found in URL.");
-      this.content = "Blog post not found.";
+      this.content = "Page not found.";
       this.loading = false;
       this.requestUpdate();
     }
@@ -128,7 +128,7 @@ class SingleContentComponent extends LitElement {
         this.title = data.title;
         this.content = data.content;
       } else {
-        this.content = "Blog post not found.";
+        this.content = "Page not found.";
       }
 
       this.loading = false;

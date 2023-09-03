@@ -5,7 +5,8 @@ import fetchDataFromFirestore from "../../module/service/firebaseService";
 
 import "./Blog/seoBlogCard";
 import globalSemanticCSS from "../../src/global-semanticCSS";
-import { TWStyles } from "../../src/tailwind/twlit";
+import { TWStyles } from "../../src/css/twlit";
+
 
 class BlogComponent extends LitElement {
   static styles = [

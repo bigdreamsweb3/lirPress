@@ -1,6 +1,4 @@
-// path: ./src/pages/SingleContent.js
-// ./src/pages/SingleContentPage.js
-
+// path: ./src/pages/_SingleContent.js
 import { html } from "lit";
 import "../../module/component/SingleContentComponent";
 

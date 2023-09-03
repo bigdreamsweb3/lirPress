@@ -1,5 +1,4 @@
-// path: ./core/meta-manager.js
-// ./core/meta-manager.js
+// path: ./src/core/meta-manager.js
 class MetaManager {
   updateMetaDescription(name) {
     const metaDescription = `Description for ${name}`;

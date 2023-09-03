@@ -1,7 +1,7 @@
 import os
 
 root_folder = r"C:\Users\chasefi\Documents\litPress"
-file_extensions = (".js", ".html")
+file_extensions = (".js")  # (".js",".html")
 
 
 def add_file_paths_comments(root_folder):

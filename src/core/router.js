@@ -1,7 +1,7 @@
-// path: ./core/router.js
-// ./core/router.js
+// path: ./src/core/router.js
 import page from "page";
 import { Renderer } from "./renderer";
+import { page_config } from "./routes";
 
 class Router {
   constructor() {
@@ -18,9 +18,17 @@ class Router {
   }
 
   initializeRoutes() {
+    // routes
     page("/", () => this.renderer.renderHomePage());
 
-    page("/songs", () => this.renderer.renderSongsListPage()); // Use this.renderer to access the method
+    for (const pageKey in page_config) {
+      const x_page = page_config[pageKey];
+
+      // Dynamically generate route handlers
+      page(x_page.path, () =>
+        this.renderer.x_renderPage(x_page.path, x_page.name, x_page.component)
+      );
+    }
 
     page("/:type/:category/:slug", (ctx) => {
       const { params } = ctx;

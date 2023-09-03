@@ -1,7 +1,7 @@
 // path: ./module/component/Blog/seoBlogCard.js
 
 import { html, css, LitElement, unsafeCSS } from "lit";
-import { TWStyles } from "../../../src/tailwind/twlit";
+import { TWStyles } from "../../../src/css/twlit";
 import globalSemanticCSS from "../../../src/global-semanticCSS";
 import {
   cardHeadTag,

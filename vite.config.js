@@ -7,7 +7,7 @@ import "vite-plugin-node"; // Import using default import
 export default defineConfig({
   server: {
     cors: {
-      origin: [/\localhost:3000$/],
+      origin: [/\localhost:5173$/],
       optionsSuccessStatus: 200,
     },
   },

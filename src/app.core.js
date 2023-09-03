@@ -1,5 +1,4 @@
-// path: ./app-router.js
-// app-router.js
+// path: ./src/app.core.js
 import { Renderer } from "./core/renderer";
 import { Router } from "./core/router";
 import { MetaManager } from "./core/meta-manager"; // Make sure to import MetaManager

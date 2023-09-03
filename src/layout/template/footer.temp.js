@@ -2,7 +2,7 @@
 import { html, css, LitElement } from "lit";
 import appLogo from "/logo@lcx.webp";
 import globalSemanticCSS from "../../../src/global-semanticCSS";
-import { TWStyles } from "../../../src/tailwind/twlit";
+import { TWStyles } from "../../../src/css/twlit";
 
 const appName = import.meta.env.VITE_APP_NAME;
 

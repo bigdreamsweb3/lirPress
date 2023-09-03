@@ -1,6 +1,6 @@
 // path: ./module/component/RIF/ResponsiveImageFrame.js
 import { html, css, LitElement } from "lit";
-import { TWStyles } from "../../../src/tailwind/twlit";
+import { TWStyles } from "../../../src/css/twlit";
 import globalSemanticCSS from "../../../src/global-semanticCSS";
 import thumbnail from "./thumbnail.webp";
 

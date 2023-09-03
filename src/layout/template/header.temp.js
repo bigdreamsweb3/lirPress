@@ -1,13 +1,17 @@
-// path: ./src/layout/template/header.temp.js
-// header.js
 import appLogo from "/logo@lcx.webp";
 import { html, css, LitElement } from "lit";
-
 import globalSemanticCSS from "../../../src/global-semanticCSS";
-import { TWStyles } from "../../../src/tailwind/twlit";
+import { TWStyles } from "../../../src/css/twlit";
 import { sideMenuElement } from "../inc/@sideMenu";
 
 const appName = import.meta.env.VITE_APP_NAME;
+
+const pageLinks = [
+  { name: "Home", url: "/" },
+  { name: "Swap", url: "/swap" },
+  { name: "Songs", url: "/songs" },
+  // Add more page links as needed
+];
 
 class HeaderTemplate extends LitElement {
   static styles = [
@@ -15,8 +19,6 @@ class HeaderTemplate extends LitElement {
     globalSemanticCSS,
     css`
       header {
-        /* background-color: #333;
-        color: #fff; */
         padding: 1rem;
         margin: 0;
       }
@@ -25,11 +27,13 @@ class HeaderTemplate extends LitElement {
 
   static properties = {
     isOpen: { type: Boolean },
+    isWeb3ButtonVisible: { type: Boolean },
   };
 
   constructor() {
     super();
     this.isOpen = false;
+    this.isWeb3ButtonVisible = true; // Set based on your visibility logic
   }
 
   toggleMenu() {
@@ -43,9 +47,8 @@ class HeaderTemplate extends LitElement {
   render() {
     return html`
       <header class="header block w-full h-auto">
-        <nav class="navbar grid items-center mx-7">
-          <!-- Logo and App Name -->
-          <a href="/" class="">
+        <nav class="navbar grid items-center">
+          <a href="/">
             <div class="flex items-center justify-center h-16">
               <img
                 class="border-0 w-8 h-8 outline-offset-2 mr-2"
@@ -61,37 +64,36 @@ class HeaderTemplate extends LitElement {
             </div>
           </a>
 
-          <!-- Navigation Links -->
           <div class="hidden md:flex flex-auto gap-2">
-            <!-- Add Links from NavLinkUtils -->
             <ul
               id="headerNav"
               class="flex flex-auto justify-end items-center gap-3 h-8"
             >
-              <li class="m-2">
-                <a
-                  href="."
-                  aria-label="Go to home page"
-                  class="p-1 text-slate-500 hover:text-slate-900 dark:hover:text-slate-400"
-                  >Home</a
-                >
-              </li>
-              <li class="m-2">
-                <a
-                  href="/songs"
-                  aria-label="Go to home page"
-                  class="p-1 text-slate-500 hover:text-slate-900 dark:hover:text-slate-400"
-                  >Songs</a
-                >
-              </li>
+              ${pageLinks.map(
+                (link) => html`
+                  <li class="m-2">
+                    <a
+                      href="${link.url}"
+                      aria-label="Go to ${link.name} page"
+                      class="p-1 text-slate-500 hover:text-slate-900 dark:hover:text-slate-400"
+                      >${link.name}</a
+                    >
+                  </li>
+                `
+              )}
             </ul>
+
+            <div>
+              ${this.isWeb3ButtonVisible
+                ? html`<connect-wallet-button></connect-wallet-button>`
+                : ""}
+            </div>
           </div>
 
           <div id="toggle-menu" class="flex md:hidden">
-            <!-- Toggle Menu Button -->
             <button
               id="toggle-btn"
-              aria-label="Toogle side menu"
+              aria-label="Toggle side menu"
               class="relative w-8 h-8 flex flex-col auto-cols-auto justify-center items-center bg-transparent border border-gray-200 rounded-md outline-none focus:outline-none"
               @click=${this.toggleMenu}
             ></button>
@@ -103,7 +105,7 @@ class HeaderTemplate extends LitElement {
         id="box-outer-element"
         class="h-screen w-full bg-transparent justify-center md:justify-start hidden md:hidden"
       ></div>
-      <!-- i want to hide  side-menu when box-outer-element is touched-->
+
       <div
         class="side-menu md:hidden bg-white ${this.isOpen ? "open" : ""}"
         @click=${this.toggleMenu}

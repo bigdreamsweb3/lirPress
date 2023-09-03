@@ -91,6 +91,10 @@ export const sideMenuElement = html`
             >
           </li>
         </ul>
+
+        <div>
+          <connect-wallet-button></connect-wallet-button>
+        </div>
       </nav>
 
       <!-- Help Question Answer Message -->

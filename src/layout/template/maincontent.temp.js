@@ -156,7 +156,7 @@ class MainContentTemp extends LitElement {
         </div>
         <div
           slot="sidebar"
-          class="sidebar ${sidebarClasses}"
+          class="sidebar mt-4 mr-4 ${sidebarClasses}"
           style="--sidebar-width: ${this.sidebarWidth}"
         ></div>
       </main>

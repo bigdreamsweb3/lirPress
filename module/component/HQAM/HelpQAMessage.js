@@ -3,7 +3,7 @@
 
 import { LitElement, html, css } from "lit";
 import globalSemanticCSS from "../../../src/global-semanticCSS";
-import { TWStyles } from "../../../src/tailwind/twlit";
+import { TWStyles } from "../../../src/css/twlit";
 
 class HQAMessage extends LitElement {
   static styles = [

@@ -1,6 +1,5 @@
-// path: ./src/app-layout.js
-
-import { LitElement, css, html } from "lit";
+// path: ./src/app.layout.js
+import { LitElement, css, html, unsafeCSS } from "lit";
 
 // Templates
 import "./layout/template/header.temp.js";
@@ -14,14 +13,28 @@ import "../module/component/ERROR/ErrorElement.js";
 import "../plug/plug.js";
 
 // CSS Engines
-import { TWStyles } from "./tailwind/twlit.js";
+import { TWStyles } from "./css/twlit.js";
 import globalSemanticCSS from "./global-semanticCSS.js";
 import "../module/component/AuthProtectedPage.js";
 
 export class AppLayout extends LitElement {
+  static properties = {
+    appName: { type: String },
+    themeMode: { type: String },
+    errorType: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.appName = "";
+    this.errorType = "";
+    this.themeMode = "dark"; // Default theme mode
+  }
+
   static styles = [
     TWStyles,
     globalSemanticCSS,
+
     css`
       :host {
         display: block;
@@ -31,13 +44,15 @@ export class AppLayout extends LitElement {
         text-align: center;
         height: calc(100vh - 190px);
         width: 100%;
-        background: #c6c6c606;
+        transition: background-color 0.3s, color 0.3s; // Smooth transition for theme change
+        background-color: var(--background-color);
+        color: var(--text-color);
       }
 
       .page-wrapper {
-        display: flex; /* Use flex container */
-        flex-direction: column; /* Arrange items vertically */
-        min-height: 100vh; /* Ensure the layout covers the viewport height */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       .page-margin {
@@ -58,17 +73,6 @@ export class AppLayout extends LitElement {
     `,
   ];
 
-  static properties = {
-    appName: { type: String },
-    errorType: { type: String },
-  };
-
-  constructor() {
-    super();
-    this.appName = "";
-    this.errorType = "";
-  }
-
   render() {
     return html`
       <div class="page-wrapper">
@@ -77,8 +81,6 @@ export class AppLayout extends LitElement {
         <main-content-template sidebarPosition="right">
           <slot></slot>
         </main-content-template>
-
-        <!-- <auth-protected-page></auth-protected-page> -->
 
         ${this.errorType
           ? html`<error-element .errorType="${this.errorType}"></error-element>`
